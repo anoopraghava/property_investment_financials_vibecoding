@@ -1,0 +1,154 @@
+Create a comprehensive Australian Property Investment Calculator web application that runs entirely client-side with no dependencies. The app should help users analyze the financial implications of purchasing an investment property in Australia.
+
+## Core Requirements
+
+### 1. User Inputs
+- Investor income (self and spouse annual salaries)
+- Investment property details:
+  - Purchase price, deposit, expected weekly rent
+  - Interest rate, loan term, loan type (P&I or Interest Only)
+  - Property city selection (Sydney, Melbourne, Brisbane, Perth, Adelaide, Hobart, Canberra, Darwin) with auto-filled appreciation rates based on historical data (2014-2024)
+  - Ownership percentage split between owners
+- PPOR (Principal Place of Residence) details:
+  - Current home value, current loan balance
+  - Interest rate, remaining term
+  - PPOR appreciation rate (defaults to Sydney rate but editable)
+- Expenses (editable defaults):
+  - Upfront costs (stamp duty, legal, etc.) - auto-calculated as 5% of purchase price
+  - Council rates, water rates, landlord insurance
+  - Annual maintenance (% of purchase price)
+  - Property management fee (% of rent)
+  - Depreciation
+  - Agent/broker purchase and selling costs
+  - Marketing and selling costs
+- Tax configuration (2025-26):
+  - Editable tax brackets (default to Stage 3 rates effective 1 July 2024)
+  - Medicare levy rate (default 2%)
+  - LMI (Lenders Mortgage Insurance) tiers based on LVR
+- Projection settings:
+  - Property price appreciation rate (% p.a.)
+  - Projection horizon (years)
+  - Alternative cash return if not invested (% p.a.)
+  - Investment delay (years before investing)
+  - Extra PPOR repayments per month
+
+### 2. Calculations
+
+#### Immediate Calculations
+- Rental yield (annual rent / purchase price)
+- Loan-to-Value Ratio (LVR)
+- Estimated LMI cost (if LVR > 80%, based on editable tiers)
+- Loan amount (purchase price - deposit + LMI if capitalised)
+- Annual interest (interest-only or interest component of P&I)
+- Annual principal (for P&I loans, year 1 approximation)
+- Annual rental income (weekly rent × 52)
+- Itemised annual expenses (council, water, insurance, maintenance, PM fee)
+- Total annual expenses (itemised + interest)
+- Net gearing pre-depreciation (rent - expenses - interest)
+- Taxable loss (pre-depreciation result - depreciation)
+- Combined marginal tax rate (calculated per owner based on individual incomes)
+- Annual tax savings (taxable loss × marginal rates, split by ownership)
+- Out-of-pocket before tax (total expenses + principal - rent)
+- Out-of-pocket after tax (before tax OOP - tax savings)
+- Monthly OOP (before and after tax)
+
+#### Projection Calculations
+- Year-by-year projections over the specified horizon
+- Two scenarios:
+  - **Invest**: Purchase investment property, make scheduled PPOR repayments only
+  - **No Invest**: Apply deposit + upfront costs as lump sum to PPOR immediately, then make scheduled PPOR repayments + extra repayments equal to investment property monthly out-of-pocket (before tax)
+- For each year:
+  - Property value appreciation (investment property and PPOR)
+  - Loan balance reduction (amortization for both loans)
+  - Rental income (constant, no growth modeled)
+  - Expenses and interest
+  - Tax savings from negative gearing
+  - After-tax cashflow
+  - Net worth calculation:
+    - Invest: Investment property equity + PPOR equity + cumulative after-tax cashflow
+    - No Invest: PPOR equity only
+- Final net worth difference at horizon
+
+### 3. Tax Calculations
+- Progressive tax brackets (piecewise calculation)
+- Medicare levy applied as flat rate
+- Marginal tax rate calculation per owner based on individual taxable income
+- Tax savings calculated separately for each owner based on their ownership percentage and marginal rate
+- Effective combined marginal rate shown as actual savings / |taxable loss|
+
+### 4. Visualizations
+- Annual cashflow chart (after tax) - line chart showing cashflow over time
+- Net worth comparison chart - two lines showing "Invest" vs "No Invest" scenarios
+- Net worth tables:
+  - Side-by-side tables for "Invest" and "No Invest" scenarios
+  - Columns: Year, Net worth, Investment property value, Investment loan balance, PPOR value, PPOR loan balance
+  - Year 0 row showing initial state
+- All charts use SVG with proper scaling and axes
+
+### 5. UI/UX Requirements
+- Modern, dark-themed design
+- Responsive layout that works on desktop and mobile
+- Card-based sections for different input groups
+- Real-time calculation updates as inputs change
+- Clear labels and help text explaining each field
+- Visual property images for PPOR (with link to property listing)
+- Scenario comparison visualization showing PPOR vs PPOR + Investment Property
+- Editable tax brackets and LMI tiers in expandable sections
+- Results displayed in organized grid with clear labels and descriptions
+- Assumptions and notes section explaining calculation methodology
+
+### 6. Technical Requirements
+- Pure JavaScript (no frameworks)
+- No build process or dependencies
+- All calculations run client-side
+- No data sent to external servers
+- Works offline after initial load
+- Entry point: index.html
+- Separate explanation page (explain.html) with detailed calculation methodology
+- Clean, maintainable code structure
+
+### 7. Special Features
+- City selection dropdown that auto-fills property appreciation rate based on historical data
+- Custom city option for manual entry
+- LMI calculation based on LVR tiers (editable)
+- Ownership percentage split for tax calculations
+- Investment delay feature (start investing after X years)
+- Extra PPOR repayments option
+- Selling costs applied to final year of projection
+- Agent purchase costs included in initial investment
+
+### 8. Default Values
+- Salaries: $120,000 (self), $80,000 (spouse)
+- Purchase price: $750,000
+- Deposit: $150,000
+- Weekly rent: $650
+- Interest rate: 6.40%
+- Loan term: 30 years
+- Loan type: P&I
+- Ownership: 50% each
+- PPOR value: $1,300,000
+- PPOR balance: $1,000,000
+- PPOR rate: 5.20%
+- PPOR term: 25 years
+- Horizon: 20 years
+- Appreciation: 3.0% (investment), 6.9% (PPOR - Sydney default)
+
+### 9. City Appreciation Rates (2014-2024 historical data)
+- Sydney: 6.9% p.a.
+- Melbourne: 4.6% p.a.
+- Brisbane: 6.5% p.a.
+- Perth: 3.1% p.a.
+- Adelaide: 6.7% p.a.
+- Hobart: 7.0% p.a.
+- Canberra: 5.9% p.a.
+- Darwin: 0.5% p.a.
+
+### 10. Styling
+- Dark theme with modern color scheme
+- Professional, clean design
+- Good contrast for readability
+- Responsive grid layouts
+- Smooth interactions and hover effects
+
+The application should be production-ready, well-documented in code, and provide a comprehensive tool for Australian property investment analysis.
+

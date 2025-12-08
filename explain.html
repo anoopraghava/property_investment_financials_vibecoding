@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculation Explanations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Calculations Explained</h1>
+    <p class="subtitle">Select a topic to view details.</p>
+  </header>
+  <main class="container">
+    <section class="card">
+      <label>Choose topic
+        <select id="explainTopic">
+          <option value="cashflow">Cashflow (rent, expenses, interest, principal)</option>
+          <option value="tax">Tax and negative gearing</option>
+          <option value="lmi">LMI and LVR</option>
+          <option value="ppor">PPOR comparison logic</option>
+          <option value="networth">Net worth projections</option>
+        </select>
+      </label>
+      <div id="explainContent" class="help" style="margin-top:12px"></div>
+      <div style="margin-top:12px"><a class="btn" href="index.html">Back to calculator</a></div>
+    </section>
+  </main>
+  <script>
+    (function(){
+      const content = document.getElementById('explainContent');
+      const topic = document.getElementById('explainTopic');
+      const texts = {
+        cashflow: 'Cashflow = Rent − (Council + Water + Insurance + PM fee + Maintenance) − Interest − Principal (principal only for cashflow burden; excluded for tax).',
+        tax: 'Taxable loss = (Rent − Expenses − Interest) − Depreciation. Savings = loss split by ownership × each person\'s marginal rate + Medicare. Effective rate shown as savings / |loss|.',
+        lmi: 'LVR = Loan ÷ Value. If LVR > 80%, LMI is applied using the editable tier table. LMI is capitalised into the loan for calculations.',
+        ppor: 'No Invest: apply deposit + upfront costs as an immediate lump-sum to PPOR, then make scheduled repayments plus extra equal to the investment property monthly out-of-pocket (before tax). Invest: scheduled repayments only.',
+        networth: 'Invest net worth = IP equity + PPOR equity + cumulative after-tax cashflow. No Invest net worth = PPOR equity. Year 0 shows current state before any changes.'
+      };
+      function update(){ content.textContent = texts[topic.value] || ''; }
+      topic.addEventListener('change', update);
+      update();
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+

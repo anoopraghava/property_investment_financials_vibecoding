@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AU Property Investment Calculator (2025)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Australian Property Investment Calculator (2025–26)</h1>
+    <p class="subtitle">Runs locally. No internet required. Editable assumptions. Not financial advice.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Investor Income</h2>
+      <div class="grid">
+        <label>My annual salary ($)
+          <input id="salarySelf" type="number" min="0" step="1000" value="120000">
+        </label>
+        <label>Spouse annual salary ($)
+          <input id="salarySpouse" type="number" min="0" step="1000" value="80000">
+        </label>
+      </div>
+      <p class="help">Combined marginal tax rate auto-calculates from salaries and tax config.</p>
+    </section>
+
+    <section class="card">
+      <h2>Property & Loan</h2>
+      <div class="grid">
+        <label>Investment property city
+          <select id="investmentCity">
+            <option value="sydney">Sydney (6.9% p.a.)</option>
+            <option value="melbourne">Melbourne (4.6% p.a.)</option>
+            <option value="brisbane">Brisbane (6.5% p.a.)</option>
+            <option value="perth">Perth (3.1% p.a.)</option>
+            <option value="adelaide">Adelaide (6.7% p.a.)</option>
+            <option value="hobart">Hobart (7.0% p.a.)</option>
+            <option value="canberra">Canberra (5.9% p.a.)</option>
+            <option value="darwin">Darwin (0.5% p.a.)</option>
+            <option value="custom">Custom (manual entry)</option>
+          </select>
+        </label>
+        <label>Purchase price ($)
+          <input id="purchasePrice" type="number" min="0" step="1000" value="750000">
+        </label>
+        <label>Deposit ($)
+          <input id="deposit" type="number" min="0" step="1000" value="150000">
+        </label>
+        <label>Expected weekly rent ($)
+          <input id="weeklyRent" type="number" min="0" step="10" value="650">
+        </label>
+        <label>Interest rate (% p.a.)
+          <input id="interestRate" type="number" min="0" step="0.01" value="6.40">
+        </label>
+        <label>Loan term (years)
+          <input id="loanTermYears" type="number" min="1" step="1" value="30">
+        </label>
+        <label>Loan type
+          <select id="loanType">
+            <option value="P&I" selected>Principal & Interest (P&I)</option>
+            <option value="IO">Interest Only (IO)</option>
+          </select>
+        </label>
+        <label>Ownership to me (% of property)
+          <input id="ownershipSelfPct" type="number" min="0" max="100" step="1" value="50">
+        </label>
+      </div>
+      <p class="help">City selection auto-fills investment property price appreciation rate based on historical data (2014-2024). PPOR rate can be overridden in the PPOR section below. Select "Custom" for manual entry.</p>
+    </section>
+
+    <section class="card">
+      <h2>My Existing Home Loan - Sydney PPOR (comparison baseline)</h2>
+      <div class="property-visual">
+        <div class="property-image-container">
+          <a href="https://www.realestate.com.au/property/4-burra-st-pendle-hill-nsw-2145/" target="_blank" class="property-link">
+            <img src="PPOR.jpg" alt="My PPOR - 4 Burra St, Pendle Hill NSW 2145" class="property-image">
+            <div class="property-overlay">
+              <span class="property-address">4 Burra St, Pendle Hill NSW 2145</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="grid">
+        <label>Current home value ($)
+          <input id="pporValue" type="number" min="0" step="1000" value="1300000">
+        </label>
+        <label>Current balance ($)
+          <input id="pporBalance" type="number" min="0" step="1000" value="1000000">
+        </label>
+        <label>Interest rate (% p.a.)
+          <input id="pporRate" type="number" min="0" step="0.01" value="5.20">
+        </label>
+        <label>Remaining term (years)
+          <input id="pporTermYears" type="number" min="1" step="1" value="25">
+        </label>
+        <label>PPOR appreciation rate (% p.a.)
+          <input id="pporAppreciationPct" type="number" min="-20" max="50" step="0.1" value="6.9">
+        </label>
+      </div>
+      <p class="help">No-invest baseline: deposit reduces the PPOR balance immediately (upfront costs are not redirected). Extra repayments each month equal the investment property's monthly out-of-pocket cost before tax. Invest path: only scheduled repayments are made. Default PPOR rate is Sydney (6.9% p.a.) but you can override it.</p>
+    </section>
+
+    <section class="card">
+      <h2>Expenses (editable defaults)</h2>
+      <div class="grid">
+        <label>Upfront costs ($, stamp duty/legal etc.)
+          <input id="upfrontCosts" type="number" min="0" step="1000" value="30000">
+        </label>
+        <label>Council rates ($/yr)
+          <input id="councilRates" type="number" min="0" step="100" value="2000">
+        </label>
+        <label>Water rates ($/yr)
+          <input id="waterRates" type="number" min="0" step="100" value="1200">
+        </label>
+        <label>Landlord insurance ($/yr)
+          <input id="landlordInsurance" type="number" min="0" step="100" value="1500">
+        </label>
+        <label>Annual maintenance (% of purchase price)
+          <input id="maintenancePct" type="number" min="0" step="0.1" value="1.0">
+        </label>
+        <label>Property management fee (% of rent)
+          <input id="pmFeePct" type="number" min="0" step="0.1" value="7.5">
+        </label>
+        <label>Depreciation ($/yr)
+          <input id="depreciation" type="number" min="0" step="500" value="9000">
+        </label>
+        <label>Agent/broker purchase cost (% of property price)
+          <input id="agentPurchasePct" type="number" min="0" step="0.1" value="2.2">
+        </label>
+        <label>Agent/broker selling cost (% of property price)
+          <input id="agentSellingPct" type="number" min="0" step="0.1" value="2.2">
+        </label>
+        <label>Marketing and selling costs ($)
+          <input id="marketingCosts" type="number" min="0" step="1000" value="20000">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Tax configuration (2025–26)</h2>
+      <details>
+        <summary>Edit brackets and Medicare levy</summary>
+        <div class="tax-config">
+          <div>
+            <h3>Tax brackets</h3>
+            <p class="help">Assumed Stage 3 rates effective 1 July 2024. Adjust if different for 2025–26.</p>
+            <table id="taxBracketsTable">
+              <thead>
+                <tr><th>Threshold ($)</th><th>Rate (%)</th></tr>
+              </thead>
+              <tbody>
+                <!-- Rows populated by JS -->
+              </tbody>
+            </table>
+            <button id="addBracketBtn" class="btn">Add bracket</button>
+          </div>
+          <div>
+            <h3>Medicare levy</h3>
+            <label>Levy rate (% of taxable income)
+              <input id="medicareRatePct" type="number" min="0" step="0.1" value="2.0">
+            </label>
+            <p class="help">Low-income thresholds are not modeled by default; you may effectively reduce the rate if applicable.</p>
+          </div>
+          <div>
+            <h3>LMI assumptions</h3>
+            <p class="help">Approximate LMI as % of loan based on LVR. Edit as needed.</p>
+            <table id="lmiTable">
+              <thead>
+                <tr><th>Min LVR (%)</th><th>Max LVR (%)</th><th>LMI (% of loan)</th></tr>
+              </thead>
+              <tbody>
+                <!-- Rows populated by JS -->
+              </tbody>
+            </table>
+            <button id="addLmiRowBtn" class="btn">Add LMI tier</button>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Projections & Assumptions</h2>
+      <div class="grid">
+        <label>Property price appreciation (% p.a.)
+          <input id="appreciationPct" type="number" min="-20" max="50" step="0.1" value="3.0">
+        </label>
+        <label>Projection horizon (years)
+          <input id="horizonYears" type="number" min="1" max="60" step="1" value="20">
+        </label>
+        <label>Alternative cash return if not invested (% p.a.)
+          <input id="altReturnPct" type="number" min="0" max="20" step="0.1" value="4.0">
+        </label>
+        <label>Invest after (years)
+          <input id="investDelayYears" type="number" min="0" max="60" step="1" value="0">
+        </label>
+        <label>Extra PPOR repayment ($/month)
+          <input id="pporExtraMonthly" type="number" min="0" step="50" value="0">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Results</h2>
+      <div class="results-grid">
+        <div class="result">
+          <div class="label">Rental yield</div>
+          <div id="rentalYield" class="value">—</div>
+          <div class="desc">Annual rent / purchase price.</div>
+        </div>
+        <div class="result">
+          <div class="label">Loan-to-Value (LVR)</div>
+          <div id="lvr" class="value">—</div>
+          <div class="desc">(Loan ÷ property value).</div>
+        </div>
+        <div class="result">
+          <div class="label">Estimated LMI</div>
+          <div id="lmiCost" class="value">—</div>
+          <div class="desc">Applied if LVR > 80% per assumptions.</div>
+        </div>
+        <div class="result">
+          <div class="label">Loan amount</div>
+          <div id="loanAmount" class="value">—</div>
+          <div class="desc">Purchase price − deposit + LMI (if capitalised).</div>
+        </div>
+        <div class="result">
+          <div class="label">Annual interest</div>
+          <div id="annualInterest" class="value">—</div>
+          <div class="desc">Interest-only interest or interest component of P&I (approx).</div>
+        </div>
+        <div class="result">
+          <div class="label">Annual principal (P&I)</div>
+          <div id="annualPrincipal" class="value">—</div>
+          <div class="desc">Principal reduction in year 1 (P&I loans only).</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Annual rental income</div>
+          <div id="annualRent" class="value">—</div>
+          <div class="desc">Weekly rent × 52.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Itemised annual expenses</div>
+          <div id="annualExpenses" class="value">—</div>
+          <div class="desc">Council, water, insurance, maintenance, property management.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Total annual expenses</div>
+          <div id="totalAnnualExpenses" class="value">—</div>
+          <div class="desc">Expenses + interest (and principal if counted for cashflow).</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Net gearing (pre-depreciation)</div>
+          <div id="netGearingPreDep" class="value">—</div>
+          <div class="desc">Rent − expenses − interest.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Taxable loss (after depreciation)</div>
+          <div id="taxableLoss" class="value">—</div>
+          <div class="desc">Pre-depreciation result − depreciation.</div>
+        </div>
+        <div class="result">
+          <div class="label">Combined marginal tax rate</div>
+          <div id="combinedMtr" class="value">—</div>
+          <div class="desc">Top marginal rate across combined income (approx + Medicare).</div>
+        </div>
+        <div class="result">
+          <div class="label">Annual tax savings</div>
+          <div id="annualTaxSavings" class="value">—</div>
+          <div class="desc">Taxable loss × combined marginal rate.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Out-of-pocket (before tax)</div>
+          <div id="oopBeforeTax" class="value">—</div>
+          <div class="desc">Total expenses − rent (includes interest; principal for cashflow).</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Out-of-pocket (after tax)</div>
+          <div id="oopAfterTax" class="value">—</div>
+          <div class="desc">Before-tax OOP − annual tax savings.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Monthly OOP (before/after)</div>
+          <div id="monthlyOop" class="value">—</div>
+          <div class="desc">Before and after tax divided by 12.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Effective combined marginal rate</div>
+          <div id="effectiveMtr" class="value">—</div>
+          <div class="desc">Actual rate implied by tax savings vs taxable loss.</div>
+        </div>
+        <div class="result span2">
+          <div class="label">Final net worth at horizon</div>
+          <div id="finalNetWorth" class="value">—</div>
+          <div class="desc">Compare invest vs not invest at horizon.</div>
+        </div>
+      </div>
+      <div class="charts">
+        <div class="chart-block">
+          <h3>Annual cashflow (after tax)</h3>
+          <svg id="cashflowChart" viewBox="0 0 600 240" preserveAspectRatio="none"></svg>
+          <div class="legend"><span class="key" style="--c:#18a34a"></span>After-tax cashflow</div>
+        </div>
+        <div class="chart-block">
+          <h3>Net worth over time: invest vs baseline</h3>
+          <svg id="networthChart" viewBox="0 0 600 240" preserveAspectRatio="none"></svg>
+          <div class="legend"><span class="key" style="--c:#2f71ff"></span>Invest &nbsp;&nbsp; <span class="key" style="--c:#9aa4b2"></span>No Invest</div>
+        </div>
+      </div>
+      <div class="table-block">
+        <h3>Net worth tables</h3>
+        <div class="scenario-visual">
+          <div class="scenario-comparison">
+            <div class="scenario-box">
+              <h4>No Invest (PPOR Only)</h4>
+              <div class="property-image-container">
+                <a href="https://www.realestate.com.au/property/4-burra-st-pendle-hill-nsw-2145/" target="_blank" class="property-link">
+                  <img src="PPOR.jpg" alt="My PPOR - 4 Burra St, Pendle Hill NSW 2145" class="property-image">
+                  <div class="property-overlay">
+                    <span class="property-address">4 Burra St, Pendle Hill NSW 2145</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="scenario-box">
+              <h4>Invest (PPOR + Investment)</h4>
+              <div class="combined-properties">
+                <div class="property-image-container">
+                  <a href="https://www.realestate.com.au/property/4-burra-st-pendle-hill-nsw-2145/" target="_blank" class="property-link">
+                    <img src="PPOR.jpg" alt="My PPOR - 4 Burra St, Pendle Hill NSW 2145" class="property-image">
+                    <div class="property-overlay">
+                      <span class="property-address">4 Burra St, Pendle Hill NSW 2145</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="plus-sign">+</div>
+                <div class="property-image-container">
+                  <div class="property-link investment-placeholder">
+                    <div class="investment-property-icon">
+                      <svg viewBox="0 0 100 100" class="house-icon">
+                        <path d="M50 10 L90 30 L90 80 L10 80 L10 30 Z" fill="#e0e0e0" stroke="#666" stroke-width="2"/>
+                        <path d="M30 50 L70 50 L70 80 L30 80 Z" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                        <path d="M40 60 L60 60 L60 80 L40 80 Z" fill="#d0d0d0" stroke="#666" stroke-width="1"/>
+                        <circle cx="50" cy="25" r="3" fill="#666"/>
+                      </svg>
+                      <div class="property-overlay">
+                        <span class="property-address">Investment Property</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tables-side">
+          <div class="table-col">
+            <h4>Invest</h4>
+            <table id="networthTableInvest">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Net worth</th>
+                  <th>Inv property<br>value</th>
+                  <th>Inv loan<br>balance</th>
+                  <th>PPOR value</th>
+                  <th>PPOR loan<br>balance</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="table-col">
+            <h4>No Invest</h4>
+            <table id="networthTableNoInvest">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Net worth</th>
+                  <th>PPOR value</th>
+                  <th>PPOR loan<br>balance</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-diff">
+          <h4>Difference (Invest − No Invest)</h4>
+          <div id="finalNetWorth" class="value">—</div>
+        </div>
+        <div class="nav-explain">
+          <a class="btn" href="explain.html">How are calculations done?</a>
+        </div>
+      </div>
+      <div class="assumptions">
+        <h3>Assumptions & Notes</h3>
+        <ul>
+          <li>Tax brackets default to Stage 3 rates effective 1 July 2024; adjust for 2025–26 if different.</li>
+          <li>Medicare levy modeled as a flat rate; low-income thresholds not automatically applied.</li>
+          <li>LMI estimated from editable tiers when LVR > 80%; actual premiums vary by lender/borrower.</li>
+          <li>Interest for P&I uses an amortisation approximation for year 1.</li>
+          <li>Negative gearing tax benefit calculated using combined marginal rate applied to taxable loss.</li>
+          <li>Combined marginal rate is now computed per owner and aggregated from actual tax savings.</li>
+          <li>This tool is general information only and not financial or tax advice.</li>
+          <li>Legislative risk: If negative gearing or tax settings change post-July 2025, results may differ.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>© 2025 Local calculator. No data leaves your device.</span>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      window.CalculatorApp && window.CalculatorApp.init();
+    });
+  </script>
+</body>
+</html>
+
+

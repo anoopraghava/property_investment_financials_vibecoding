@@ -1,0 +1,258 @@
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --muted: #9aa4b2;
+  --text: #e5e7eb;
+  --accent: #18a34a;
+  --border: #273244;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: linear-gradient(180deg, #0b1020, #0f172a 30%);
+}
+
+.app-header {
+  padding: 24px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.app-header h1 { margin: 0 0 4px; font-weight: 650; }
+.subtitle { margin: 0; color: var(--muted); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.card h2 { margin-top: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+label { display: grid; gap: 6px; font-size: 14px; color: var(--text); }
+input, select { background: #0b1220; color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+input:focus, select:focus { outline: none; border-color: #2f71ff; box-shadow: 0 0 0 3px rgba(47, 113, 255, 0.25); }
+
+.help { color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+.tax-config { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); }
+th, td { border-bottom: 1px solid var(--border); padding: 8px; text-align: left; }
+th { background: #0c1322; color: var(--muted); font-weight: 600; }
+td input { width: 100%; }
+
+.btn { background: #1f2937; color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+.btn:hover { background: #273244; }
+
+.results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.result { border: 1px solid var(--border); background: #0b1220; border-radius: 10px; padding: 12px; display: grid; gap: 6px; }
+.result .label { font-size: 12px; color: var(--muted); }
+.result .value { font-size: 18px; font-weight: 650; }
+.result .desc { font-size: 12px; color: var(--muted); }
+.result.span2 { grid-column: span 2; }
+
+.assumptions ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+
+.charts { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+.chart-block { background: #0b1220; border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+svg { width: 100%; height: 240px; background: #0c1322; border-radius: 8px; }
+.legend { margin-top: 8px; color: var(--muted); font-size: 12px; }
+.legend .key { display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: var(--c); margin-right: 6px; vertical-align: middle; }
+
+.table-block { margin-top: 16px; }
+.table-block table { width: 100%; border: 1px solid var(--border); border-collapse: collapse; }
+.table-block th, .table-block td { border-bottom: 1px solid var(--border); padding: 8px; }
+.table-block th { background: #0c1322; color: var(--muted); text-align: left; }
+
+.tables-side { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.table-col table { width: 100%; border-collapse: collapse; }
+.table-col th, .table-col td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: right; }
+.table-col th:first-child, .table-col td:first-child { text-align: left; }
+
+/* Ensure table headers have consistent height for alignment */
+.table-col th {
+  height: 40px;
+  vertical-align: middle;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.table-col td {
+  height: 32px;
+  vertical-align: middle;
+}
+.table-diff { margin-top: 12px; }
+.nav-explain { margin-top: 12px; }
+
+.app-footer { padding: 16px; color: var(--muted); border-top: 1px solid var(--border); text-align: center; }
+
+/* Property Image Styles */
+.property-visual {
+  margin-bottom: 16px;
+}
+
+.property-image-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.property-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.property-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.property-link:hover .property-image {
+  transform: scale(1.05);
+}
+
+.property-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Scenario Comparison Styles */
+.scenario-visual {
+  margin-bottom: 20px;
+}
+
+.table-block .scenario-visual {
+  margin-bottom: 16px;
+}
+
+.table-block .property-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.table-block .investment-placeholder {
+  width: 100%;
+  height: 200px;
+}
+
+.scenario-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.scenario-box {
+  background: #0b1220;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.scenario-box h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.scenario-box h4 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.combined-properties {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.plus-sign {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--accent);
+  margin: 0 8px;
+}
+
+.investment-placeholder {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 150px;
+  cursor: default;
+}
+
+.investment-property-icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.house-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.investment-placeholder .property-overlay {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .scenario-comparison {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .combined-properties {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .plus-sign {
+    transform: rotate(90deg);
+    margin: 8px 0;
+  }
+  
+  .property-image {
+    width: 150px;
+    height: 112px;
+  }
+  
+  .investment-placeholder {
+    width: 150px;
+    height: 112px;
+  }
+}
+
+
