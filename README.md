@@ -4,7 +4,7 @@ A comprehensive, client-side property investment calculator for Australian inves
 
 Access it at <https://anoopraghava.github.io/property_investment_financials_vibecoding/>
 
-## 🚀 How to View the App
+## 🚀 How to View the App on your computer
 
 ### Quick Start
 
@@ -109,5 +109,6 @@ This is a Vibe coding experiment. Feel free to fork, modify, and adapt for your 
 ---
 
 **Remember**: This calculator is a tool to help with analysis, not a substitute for professional financial advice. Always consult qualified professionals before making investment decisions.
+
 
 
