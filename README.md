@@ -2,6 +2,8 @@
 
 A comprehensive, client-side property investment calculator for Australian investors. This tool helps you analyze the financial implications of purchasing an investment property by comparing scenarios with and without the investment.
 
+Access it at <https://anoopraghava.github.io/property_investment_financials_vibecoding/>
+
 ## 🚀 How to View the App
 
 ### Quick Start
@@ -107,4 +109,5 @@ This is a Vibe coding experiment. Feel free to fork, modify, and adapt for your 
 ---
 
 **Remember**: This calculator is a tool to help with analysis, not a substitute for professional financial advice. Always consult qualified professionals before making investment decisions.
+
 
